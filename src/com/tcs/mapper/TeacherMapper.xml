@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tcs.mapper.TeacherMapper">
+
+    <resultMap id="teacher2" type="teacher">
+        <collection property="stuList" select="com.tcs.mapper.StudentMapper.selByTid" column="id"></collection>
+    </resultMap>
+
+    <select id="selById" parameterType="int" resultType="teacher">
+        select * from teacher where id=#{0}
+    </select>
+
+    <select id="selAll" resultMap="teacher2">
+        select * from teacher
+    </select>
+</mapper>

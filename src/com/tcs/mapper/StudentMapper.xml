@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tcs.mapper.StudentMapper">
+    <resultMap id="student2" type="student">
+        <!--由于下面用到了tid，Mybatis比较懒，不会多次装配，所以必须配下面这一条，才能避免tid没有装配-->
+        <result column="tid" property="tid"></result>
+        <association property="teacher" select="com.tcs.mapper.TeacherMapper.selById" column="tid"></association>
+    </resultMap>
+
+    <select id="selAll"  resultMap="student2">
+        select * from student
+    </select>
+
+    <select id="selByTid" parameterType="int" resultType="student">
+        select * from student where tid=#{0}
+    </select>
+</mapper>
